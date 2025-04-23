@@ -1,13 +1,23 @@
-from langchain_community.embeddings.openai import OpenAIEmbeddings
-from langchain_community.embeddings.bedrock import BedrockEmbeddings
+from langchain_openai import OpenAIEmbeddings
+from dotenv import load_dotenv
+import os
 
-# Make sure to use the same embedding for vectorizing the documents and the query.
+# Load environment variables
+load_dotenv()
+
 def get_embedding_function():
-    embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
-    return embeddings
+    """
+    Returns an OpenAI embedding function for use with LangChain and Chroma.
+    """
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY environment variable is not set")
 
-def get_bedrock_embedding_function():
-    embeddings = BedrockEmbeddings(
-        credentials_profile_name="default", region_name="us-east-1"
-    )
-    return embeddings
+    try:
+        embeddings = OpenAIEmbeddings(
+            api_key=api_key,
+            model="text-embedding-ada-002"
+        )
+        return embeddings
+    except Exception as e:
+        raise RuntimeError(f"Failed to initialize OpenAI embeddings: {str(e)}")

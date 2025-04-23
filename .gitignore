@@ -1,2 +1,6 @@
 .env
 res.txt
+chromadb
+backup
+*.pyc
+.DS_Store

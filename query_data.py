@@ -41,6 +41,10 @@ def main():
 
 def query_rag(query_text: str) -> str:
     try:
+        # Validate query
+        if not query_text.strip():
+            raise ValueError("Query cannot be empty")
+
         # Prepare the DB
         if not os.path.exists(CHROMA_PATH):
             raise FileNotFoundError(f"Chroma database not found at {CHROMA_PATH}")
@@ -65,8 +69,9 @@ def query_rag(query_text: str) -> str:
 
         model = ChatOpenAI(
             api_key=api_key,
-            model="gpt-3.5-turbo",
-            temperature=0.0
+            model="gpt-4o-mini",
+            temperature=0.0,
+            max_tokens=512
         )
         response_text = model.invoke(prompt).content
 

@@ -93,6 +93,16 @@ This project implements a Retrieval-Augmented Generation (RAG) pipeline to query
    Response: To buy a property in Monopoly, a player must land on an unowned property and purchase it from the Bank at its printed price...
    ```
 
+## Testing
+To run unit tests
+```
+pytest
+```
+For more info (query, expected response, response, etc.) in test_results.log
+```
+pytest test_rag.py -s --log-cli-level=INFO
+```
+
 ## Configuration
 
 - **Embedding Model**: Defined in `get_embedding_function.py` (default: `text-embedding-ada-002`).

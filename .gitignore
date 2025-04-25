@@ -4,3 +4,4 @@ chromadb
 backup
 *.pyc
 .DS_Store
+test_results.log
